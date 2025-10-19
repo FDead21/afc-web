@@ -142,7 +142,10 @@ export async function uploadImage(formData: FormData) {
   return { success: 'Image uploaded successfully', publicUrl };
 }
 
-export async function updateSiteContent(prevState: { error?: string; success?: string }, formData: FormData) {
+export async function updateSiteContent(
+  prevState: { error?: string; success?: string }, 
+  formData: FormData
+): Promise<{ error?: string; success?: string }> {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized' };
@@ -166,7 +169,7 @@ export async function updateSiteContent(prevState: { error?: string; success?: s
 
   revalidatePath('/');
   revalidatePath('/about');
-  revalidatePath('/contact'); // ADD THIS
+  revalidatePath('/contact');
   return { success: 'Content updated successfully!' };
 }
 
