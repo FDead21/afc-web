@@ -16,12 +16,12 @@ function SubmitButton() {
 }
 
 export default function IngredientForm() {
-  const [state, formAction] = useFormState(createIngredient, {});
+  const [state, formAction] = useFormState(createIngredient, { error: '' });
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.success) formRef.current?.reset();
-  }, [state.success]);
+    if ('success' in state && state.success) formRef.current?.reset();
+  }, [state]);
 
   return (
     <Card>
@@ -44,8 +44,8 @@ export default function IngredientForm() {
             <Input id="image_url" name="image_url" placeholder="https://example.com/image.png" />
           </div>
           <SubmitButton />
-          {state.success && <p className="text-sm text-green-600">{state.success}</p>}
-          {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+          {'success' in state && state.success && <p className="text-sm text-green-600">{state.success}</p>}
+          {'error' in state && state.error && <p className="text-sm text-red-600">{state.error}</p>}
         </form>
       </CardContent>
     </Card>
