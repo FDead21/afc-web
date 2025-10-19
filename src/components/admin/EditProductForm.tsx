@@ -40,7 +40,7 @@ export default function EditProductForm({
   images: { id: string; image_url: string }[] 
 }) {
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(product.image_url);
+  const [preview, setPreview] = useState<string | null>(product.image_url || null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(linkedIngredientIds);
@@ -93,7 +93,7 @@ export default function EditProductForm({
     setError(null);
 
     const formData = new FormData(event.currentTarget);
-    let imageUrl: string | null = product.image_url;
+    let imageUrl: string | null = product.image_url || null;
 
     if (file) {
       const imageFormData = new FormData();
@@ -105,7 +105,7 @@ export default function EditProductForm({
         setIsSubmitting(false);
         return;
       }
-      imageUrl = uploadResult.publicUrl ?? null;
+      imageUrl = uploadResult.publicUrl || null;
     }
 
     formData.set('image_url', imageUrl || '');
