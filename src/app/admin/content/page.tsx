@@ -1,8 +1,7 @@
 // src/app/admin/content/page.tsx
 'use client';
 
-import { useFormStatus } from 'react-dom';
-import { useActionState } from 'react'
+import { useFormState, useFormStatus } from 'react-dom';
 import { updateSiteContent } from '@/app/admin/actions';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
@@ -30,10 +29,7 @@ function SubmitButton() {
 }
 
 export default function ContentPage() {
-  const [state, formAction] = useActionState<{ error?: string; success?: string }>(
-  updateSiteContent, 
-  { error: undefined, success: undefined }
-);
+  const [state, formAction] = useFormState(updateSiteContent, { error: undefined, success: undefined });
   const [content, setContent] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
 
