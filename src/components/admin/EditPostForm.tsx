@@ -24,7 +24,7 @@ export default function EditPostForm({ post }: { post: { id: string; title: stri
     if (result.error) {
       setMessage(`Error: ${result.error}`);
     } else {
-      setMessage(result.success);
+      setMessage(result.success || null);
     }
     setIsSubmitting(false);
   };
