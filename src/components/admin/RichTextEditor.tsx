@@ -43,6 +43,10 @@ export default function RichTextEditor({
     },
   });
 
+  if (!editor) {
+    return null;
+  }
+
   return (
     <div>
       <EditorToolbar editor={editor} />
