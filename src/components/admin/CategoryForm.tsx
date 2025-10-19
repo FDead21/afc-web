@@ -14,7 +14,7 @@ function SubmitButton() {
 }
 
 export default function CategoryForm() {
-  const [state, formAction] = useActionState(createCategory, {});
+  const [state, formAction] = useActionState(createCategory, { error: '', success: '' });
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
