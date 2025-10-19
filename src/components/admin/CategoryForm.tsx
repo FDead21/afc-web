@@ -14,21 +14,21 @@ function SubmitButton() {
 }
 
 export default function CategoryForm() {
-  const [state, formAction] = useActionState(createCategory, { error: '', success: '' });
+  const [state, formAction] = useActionState(createCategory, { error: '' });
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.success) {
+    if ('success' in state && state.success) {
       formRef.current?.reset();
     }
-  }, [state.success]);
+  }, [state]);
 
   return (
     <form ref={formRef} action={formAction} className="space-y-4">
       <Input name="name" placeholder="e.g., Immunity Boosters" required />
       <SubmitButton />
-      {state.success && <p className="text-sm text-green-600">{state.success}</p>}
-      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {'success' in state && state.success && <p className="text-sm text-green-600">{state.success}</p>}
+      {'error' in state && state.error && <p className="text-sm text-red-600">{state.error}</p>}
     </form>
   );
 }
