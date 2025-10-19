@@ -3,12 +3,11 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/client';
 export const dynamic = 'force-dynamic';
 
-// ✅ This function MUST be named GET (uppercase)
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = params;
+  const { id } = await params;  
   const supabase = createClient();
   const { data: product, error } = await supabase
     .from('products')
@@ -28,7 +27,6 @@ export async function GET(
 }
 
 export async function DELETE(request: Request) {
-  // We remove the 'context' parameter from the function signature.
   
   const url = new URL(request.url);
   const pathParts = url.pathname.split('/');
