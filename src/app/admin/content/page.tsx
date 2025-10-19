@@ -30,7 +30,10 @@ function SubmitButton() {
 }
 
 export default function ContentPage() {
-  const [state, formAction] = useActionState(updateSiteContent, {});
+  const [state, formAction] = useActionState<{ error?: string; success?: string }>(
+  updateSiteContent, 
+  { error: undefined, success: undefined }
+);
   const [content, setContent] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
 
